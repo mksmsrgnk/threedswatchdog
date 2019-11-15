@@ -1,0 +1,4 @@
+github.com/mksmsrgnk/serviceutils v0.1.0 h1:+VL0iyzdBgBJvMNGDY4KcMVp81GVy/M565KkSQutRC0=
+github.com/mksmsrgnk/serviceutils v0.1.0/go.mod h1:YzC7WDQ4LCdLC1BKgKySulxfRZCT2puv1pfuKAMmu3g=
+github.com/mksmsrgnk/smsutils v0.1.0 h1:oWRRGeFTX4HZw134NTvcaz+EqPv+tVsbccJOTbZ7Yn0=
+github.com/mksmsrgnk/smsutils v0.1.0/go.mod h1:osWEuO7qNek1fy3SpwunMNtEKpueQNdzyJUhT5yQjf0=
