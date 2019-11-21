@@ -2,13 +2,13 @@
 - Build app
 - Create config file:
 ```
-export SERVICE_URL="<URL To Check>"
-export WORKER_SERVICE="<service name>"
-export KANNEL_ADDRESS="<kanel sms-box:port>"
-export KANNEL_USERNAME="<username>"
-export KANNEL_PASSWORD="<password>"
-export SMS_FROM="<outgoing number>"
-export SMS_TO="<destination number1,destination number2>"
+SERVICE_URL="<URL To Check>"
+WORKER_SERVICE="<service name>"
+KANNEL_ADDRESS="<kanel sms-box:port>"
+KANNEL_USERNAME="<username>"
+KANNEL_PASSWORD="<password>"
+SMS_FROM="<outgoing number>"
+SMS_TO="<destination number1,destination number2>"
 ```
 - Add cron job:
 ```
