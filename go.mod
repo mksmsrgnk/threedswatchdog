@@ -1,4 +1,4 @@
-module github.com/mksmsrgnk/threedswatchdog
+module github.com/mksmsrgnk/watchdog
 
 go 1.13
 
