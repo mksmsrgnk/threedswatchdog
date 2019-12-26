@@ -1,3 +1,4 @@
+![](https://github.com/mksmsrgnk/watchdog/.github/workflows/go.yml/badge.svg)
 # watchdog
 - Build app
 - Create config file:
