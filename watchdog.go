@@ -16,23 +16,23 @@ func main() {
 	if err := serviceutils.CheckURL(url); err != nil {
 		if err := serviceutils.RestartService(workerService); err != nil {
 			if err := smsutils.Send(from, to, fmt.Sprintf("%v", err)); err != nil {
-				log.Printf("sms error: %v", err)
+				log.Fatalf("sms error: %v", err)
 			}
 			log.Fatalf("%v", err)
-		} else {
-			message := fmt.Sprintf("%s on %s restarted successfully!", workerService, hostName)
-			if err := smsutils.Send(from, to, message); err != nil {
-				log.Printf("sms error: %v", err)
-			}
-			log.Printf("%s", message)
-			return
 		}
+		message := fmt.Sprintf("%s on %s restarted successfully!",
+			workerService, hostName)
+		if err := smsutils.Send(from, to, message); err != nil {
+			log.Printf("sms error: %v", err)
+		}
+		log.Printf("%s", message)
+		return
 	}
 	log.Printf("%s on %s is OK", workerService, hostName)
 }
 
 func init() {
-	name, err := os.Hostname();
+	name, err := os.Hostname()
 	if err != nil {
 		log.Printf("can't get host name, error %v", err)
 	}
