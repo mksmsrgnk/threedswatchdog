@@ -6,26 +6,35 @@ import (
 	"github.com/mksmsrgnk/smsutils"
 	"log"
 	"os"
+	"strings"
 )
 
 var (
-	hostName, url, workerService, from, to string
+	hostName, urlToCheck, workerService,
+	from, to, userName, password, kannelURL string
 )
 
+func sendSMS(text string) {
+	for _, t := range strings.Split(to, ",") {
+		err := smsutils.NewKannel(userName, password, kannelURL).
+			NewTextMessage(from, t, text).
+			Send()
+		if err != nil {
+			log.Printf("error: %v", err)
+		}
+	}
+}
+
 func main() {
-	if err := serviceutils.CheckURL(url); err != nil {
+	if err := serviceutils.CheckURL(urlToCheck); err != nil {
 		if err := serviceutils.RestartService(workerService); err != nil {
-			if err := smsutils.Send(from, to, fmt.Sprintf("%v", err)); err != nil {
-				log.Fatalf("sms error: %v", err)
-			}
+			sendSMS(fmt.Sprintf("%v", err))
 			log.Fatalf("%v", err)
 		}
-		message := fmt.Sprintf("%s on %s restarted successfully!",
+		text := fmt.Sprintf("%s on %s restarted successfully!",
 			workerService, hostName)
-		if err := smsutils.Send(from, to, message); err != nil {
-			log.Printf("sms error: %v", err)
-		}
-		log.Printf("%s", message)
+		sendSMS(text)
+		log.Printf("%s", text)
 		return
 	}
 	log.Printf("%s on %s is OK", workerService, hostName)
@@ -37,11 +46,11 @@ func init() {
 		log.Printf("can't get host name, error %v", err)
 	}
 	hostName = name
-	url = os.Getenv("SERVICE_URL")
+	urlToCheck = os.Getenv("SERVICE_URL")
 	workerService = os.Getenv("WORKER_SERVICE")
-	smsutils.Address = os.Getenv("KANNEL_ADDRESS")
-	smsutils.UserName = os.Getenv("KANNEL_USERNAME")
-	smsutils.Password = os.Getenv("KANNEL_PASSWORD")
+	userName = os.Getenv("KANNEL_USERNAME")
+	password = os.Getenv("KANNEL_PASSWORD")
+	kannelURL = os.Getenv("KANNEL_URL")
 	from = os.Getenv("SMS_FROM")
 	to = os.Getenv("SMS_TO")
 }
