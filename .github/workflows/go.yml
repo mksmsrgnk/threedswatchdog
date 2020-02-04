@@ -30,7 +30,7 @@ jobs:
     name: release linux/amd64
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v0.2.0
+      - uses: actions/checkout@master
       - name: compile and release
         uses: ngs/go-release.action@v1.0.1
         env:
